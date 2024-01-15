@@ -1,0 +1,4 @@
+1 kalkulator + obsluga string
+2 api
+3 obsluga gui 
+4
