@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
+    <option name="DEFAULT_COMPILER" value="Groovy-Eclipse" />
     <annotationProcessing>
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -10,12 +11,16 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="v3" target="20" />
+      <module name="v3" target="11" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="GreclipseSettings">
+    <option name="greclipsePath" value="$MAVEN_REPOSITORY$/org/codehaus/groovy/groovy-eclipse-batch/2.5.14-01/groovy-eclipse-batch-2.5.14-01.jar" />
+    <option name="cmdLineParams" value="-indy" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="v3" options="--module-path &quot;C:\Users\Arcio\Desktop\Nowy_folder\VII_semestr\praca_dyplomowa\aplikacja\v3/$PROJECT_DIR$/../../../../../../../../Program Files/Eclipse Adoptium/javafx-sdk-20.0.2/lib&quot; --add-modules javafx.controls,javafx.fxml" />
+      <module name="v3" options="" />
     </option>
   </component>
 </project>

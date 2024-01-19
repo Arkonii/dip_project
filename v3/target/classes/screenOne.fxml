@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ScreenOneController">
+    <VBox xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+        <HBox>
+            <Label text="  faktura (pdf)           " />
+            <TextField fx:id="textField1" promptText="Wprowadź tekst 1" HBox.hgrow="ALWAYS" />
+            <Button fx:id="chooseFileButton1" text="wybierz..." />
+        </HBox>
+
+        <HBox>
+            <Label text="  numery mpk (csv)  " />
+            <TextField fx:id="textField2" promptText="Wprowadź tekst 2" HBox.hgrow="ALWAYS" />
+            <Button fx:id="chooseFileButton2" text="wybierz..." />
+        </HBox>
+
+        <HBox>
+            <Label text="  plik wyjściowy (txt) " />
+            <TextField fx:id="textField3" promptText="Wprowadź tekst 3" HBox.hgrow="ALWAYS" />
+            <Button fx:id="chooseFileButton3" text="wybierz..." />
+        </HBox>
+
+        
+        <HBox alignment="CENTER">
+            <Button fx:id="startButton" text="Rozlicz" />
+        </HBox>
+    </VBox>
+</StackPane>

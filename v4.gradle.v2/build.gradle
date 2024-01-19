@@ -1,0 +1,23 @@
+plugins {
+    id 'groovy'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.groovy:groovy:4.0.17'
+    implementation 'org.apache.groovy:groovy-sql:4.0.17'
+    implementation 'org.xerial:sqlite-jdbc:3.45.0.0'
+    implementation 'org.apache.logging.log4j:log4j-slf4j2-impl:3.0.0-beta1'
+
+    // Zależności dla Spock zamiast JUnit
+    testImplementation 'org.spockframework:spock-core:2.4-M1-groovy-4.0'
+    testImplementation 'org.apache.groovy:groovy-all:4.0.17'
+    testImplementation 'org.junit.platform:junit-platform-runner:1.9.3'
+    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.9.3'
+}

@@ -1,4 +1,4 @@
-1 kalkulator + obsluga string
-2 api
-3 obsluga gui 
-4
+1 kalkulator
+2 Obsługa Api
+3 Aplikacji GUI
+4 Obsługa bazy danych
