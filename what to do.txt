@@ -1,4 +1,4 @@
 1 kalkulator
 2 Obsługa Api
-3 Aplikacji GUI
+3 Obsługa String + pliki tekstowe
 4 Obsługa bazy danych

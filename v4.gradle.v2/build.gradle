@@ -14,6 +14,7 @@ dependencies {
     implementation 'org.apache.groovy:groovy-sql:4.0.17'
     implementation 'org.xerial:sqlite-jdbc:3.45.0.0'
     implementation 'org.apache.logging.log4j:log4j-slf4j2-impl:3.0.0-beta1'
+    implementation 'net.bytebuddy:byte-buddy:1.14.11'
 
     // Zależności dla Spock zamiast JUnit
     testImplementation 'org.spockframework:spock-core:2.4-M1-groovy-4.0'

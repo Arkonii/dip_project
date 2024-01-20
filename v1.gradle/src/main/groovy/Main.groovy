@@ -5,7 +5,8 @@ class MainApp {
     println("odejmowanie "+calc.sub(5,1,1))
     println("mnożenie "+calc.multi(1,2,2))
     println("dzielenie  "+calc.div(2,2,2))
-    //println("dzielenie z zerem "+calc.div(2,0,1))
+    println("dzielenie z zerem(jako pierwsze) "+calc.div(0,1,1))
+    println("dzielenie z zerem "+calc.div(1,0,2))
 
     def strings = new StringConverter()
     println(strings.add("dodany","tekst","123"))

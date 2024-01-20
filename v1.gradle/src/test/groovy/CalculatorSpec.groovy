@@ -2,58 +2,62 @@ import spock.lang.*
 
 class CalculatorSpec extends Specification {
 
-    def "Powinien dodawać dwie liczby"() {
-        given:
-        def calculator = new Calculator()
-
-        when:
-        def result = calculator.add(5, 7)
-
-        then:
-        result == 12
+    def calculator
+    def setup(){
+        and: "utworzenie obiektu Calculator przed każdym testem"
+        calculator = new Calculator()
     }
 
-    def "Powinien odejmować drugą liczbę od pierwszej"() {
-        given:
-        def calculator = new Calculator()
+    def "Powinien sprawdzić poprawność dodawania"() {
+        when:"deklaracja zmiennej wynikowej i parametrów początkowych funkcji która będzie sprawdzana"
+        def result = calculator.add(5,7,1,1)
 
-        when:
-        def result = calculator.sub(10, 3)
-
-        then:
-        result == 7
+        then:"sprawdzanie poprawności wyniku"
+        result == 14
     }
 
-    def "Powinien mnożyć trzy liczby"() {
-        given:
-        def calculator = new Calculator()
+    def "Powinien sprawdzić poprawność odejmowania z wykorzystaniem bloku where"() {
+        when:"deklaracja zmiennej wynikowej i parametrów początkowych funkcji która będzie sprawdzana"
+        def result = calculator.sub(a, b)
 
-        when:
-        def result = calculator.multi(2, 3, 4)
+        then:"sprawdzanie poprawności wyniku"
+        result == expectedResult
 
-        then:
-        result == 24
+        where:"deklaracja tabeli danych wejściowych"
+        a | b | expectedResult
+        2 | 1 | 1
+        0 | -5 | -5
+        10| 3 | 7
+        -2| 1 | -3
     }
 
-    def "Powinien dzielić pierwszą liczbę przez drugą"() {
-        given:
-        def calculator = new Calculator()
+    def "Powinien sprawdzić poprawność mnożenia z wykorzystaniem skróconej formy testu bloku expect"() {
+        expect :"skrócona forma testu , bez bloku when i then"
+        calculator.multi(1,1,1)==1
+        calculator.multi(1,-1,1)==-1
+        calculator.multi(2,1,1,100)==200
+    }
 
-        when:
-        def result = calculator.div(15, 3)
+    def "Powinien sprawdzić poprawność dzielenia"() {
+        when:"deklaracja zmiennej wynikowej i parametrów początkowych funkcji która będzie sprawdzana"
+        def result = calculator.div(2, 2,2)
 
-        then:
-        result == 5.0
+        then:"sprawdzanie poprawności wyniku"
+        result == 0.5
     }
 
     def "Powinien rzucać wyjątek ArithmeticException przy dzieleniu przez zero"() {
-        given:
-        def calculator = new Calculator()
+        when:"deklaracja zmiennej wynikowej i parametrów początkowych funkcji która będzie sprawdzana"
+        calculator.div(10, 0)
 
-        when:
-        def result = { calculator.div(10, 0) }
-
-        then:
-        result.shouldThrow(ArithmeticException, "Nie można dzielić przez zero.")
+        then:"Sprawdzanie czy wyjątek został wychwycony"
+        thrown(ArithmeticException)
     }
+
+    @Ignore
+    def "Powinien nie przejśc testu poprawnie"(){
+        expect:"sprawdzanie poprawności wyniku"
+        calculator.add(2,3)==4
+    }
+
 }
