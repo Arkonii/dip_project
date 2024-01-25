@@ -59,5 +59,4 @@ class CalculatorSpec extends Specification {
         expect:"sprawdzanie poprawności wyniku"
         calculator.add(2,3)==4
     }
-
 }

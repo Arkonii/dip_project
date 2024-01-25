@@ -15,7 +15,7 @@ class DatabaseSpec extends Specification {
         database.clearAllUsersFromDatabase()
     }
 
-    @IgnoreRest
+
     def "Powinien dodać użytkownika do bazy danych"() {
         when:"dodawanie użytkownika do bazy danych"
         database.addUserToDatabase("Jacek", 25)
@@ -50,7 +50,7 @@ class DatabaseSpec extends Specification {
         database.addUserToDatabase("Barbara", 35)
 
         and:"sprawdzenie czy użytkownik został dodany"
-        Map<String, Object> addedUser = database.getUserByNameFromDatabase("Joanna")
+        Map<String, Object> addedUser = database.getUserByNameFromDatabase("Barbara")
         assert addedUser.name == "Barbara" && addedUser.age == 35
 
         and:"aktualizacja danych użytkownika"
@@ -100,7 +100,7 @@ class DatabaseSpec extends Specification {
         Map<String, Object> addedUser = database.getUserByNameFromDatabase(user1.name)
         Map<String, Object> addedUser2 = database.getUserByNameFromDatabase(user2.name)
         assert addedUser.name == user1.name && addedUser.age == user1.age
-        assert addedUser.name == user2.name && addedUser.age == user2.age
+        assert addedUser2.name == user2.name && addedUser2.age == user2.age
 
         and:"wyszukanie użytkownik w bazie danych za pomocą imienia i przypisanie ich id do zmiennych"
         def user1Id = database.getUserByNameFromDatabase(user1.name)?.id

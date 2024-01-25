@@ -1,6 +1,5 @@
 import groovy.sql.Sql
 
-
 final class Database {
    static Sql sql = Sql.newInstance("jdbc:sqlite:testdb.db", null, null, 'org.sqlite.JDBC')
 

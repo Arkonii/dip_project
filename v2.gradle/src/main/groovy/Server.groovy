@@ -9,7 +9,7 @@ class Server {
     static List<Integer> ageTab = [30, 28, 33]
     static ClientAndServer mockServer
 
-    static void startServer() {
+    static void main(String[] args) {
         def a = 1080
         mockServer = new ClientAndServer(a)
 
