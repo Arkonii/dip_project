@@ -140,4 +140,13 @@ final class Database {
 
         return result?.weighted_avg ?: 0
     }
+    // Funkcja usuwająca studenta
+    static def deleteStudent(studentId) {
+        sql.execute("DELETE FROM STUDENTS WHERE id = ?", [studentId])
+    }
+
+// Funkcja aktualizująca dane studenta
+    static def updateStudent(studentId, newName, newSurname, newAge) {
+        sql.execute("UPDATE STUDENTS SET name = ?, surname = ?, age = ? WHERE id = ?", [newName, newSurname, newAge, studentId])
+    }
 }
