@@ -1,0 +1,25 @@
+# Ignoruj pliki tymczasowe
+*.tmp
+
+# Ignoruj pliki wykonywalne
+*.exe
+*.dll
+
+# Ignoruj katalogi wygenerowane przez IDE
+.idea/
+
+# Ignoruj katalog node_modules (typowy dla projektów Node.js)
+node_modules/
+
+# Ignoruj pliki konfiguracyjne systemu
+.DS_Store
+Thumbs.db
+
+test/
+v1/
+v1.gradle/
+v2.6/
+v2.gradle/
+v3/
+v4.2/
+v4.gradle.v2/
