@@ -27,6 +27,11 @@ class GradesService {
     def getGradesByStudentAndSubject(Students student, String subject) {
         gradesRepository.findAllByStudentAndNameOfSubject(student, subject)
     }
+    def getGradesByStudent(Students student) {
+        gradesRepository.findAllByStudent(student)
+    }
+
+
     def calculateAverageGradeForSubject(Long studentId, String subject) {
         def student = studentsRepository.findById(studentId).orElse(null)
         if (student) {
@@ -56,6 +61,59 @@ class GradesService {
         def student = studentsRepository.findById(studentId).orElse(null)
         if (student) {
             def grades = getGradesByStudentAndSubject(student, subject)
+            if (grades) {
+                // Sortowanie ocen przed obliczeniem mediany
+                def sortedGrades = grades.sort { it.grade }
+                def size = sortedGrades.size()
+
+                if (size % 2 == 0) {
+                    def middle1 = sortedGrades[size / 2 - 1].grade
+                    def middle2 = sortedGrades[size / 2].grade
+                    return (middle1 + middle2) / 2
+                } else {
+                    return sortedGrades[size / 2].grade
+                }
+            }
+        }
+        return null
+    }
+    def calculateAverageGradeForStudent(Long studentId) {
+        def student = studentsRepository.findById(studentId).orElse(null)
+        if (student) {
+            def grades = getGradesByStudent(student)
+            if (grades) {
+                def sum = grades.collect { it.grade }.sum()
+                return sum / grades.size()
+            }
+        }
+        return null
+    }
+
+    def calculateWeightedAverageGradeForStudent(Long studentId) {
+        def student = studentsRepository.findById(studentId).orElse(null)
+        if (student) {
+            def grades = getGradesByStudent(student)
+            if (grades) {
+                def weightedSum = 0.0
+                def totalWeight = 0.0
+
+                grades.each { grade ->
+                    if (grade.weight != null) {
+                        weightedSum += grade.grade * grade.weight
+                        totalWeight += grade.weight
+                    }
+                }
+
+                return totalWeight != 0.0 ? weightedSum / totalWeight : null
+            }
+        }
+        return null
+    }
+
+    def calculateMedianGradeForStudent(Long studentId) {
+        def student = studentsRepository.findById(studentId).orElse(null)
+        if (student) {
+            def grades = getGradesByStudent(student)
             if (grades) {
                 // Sortowanie ocen przed obliczeniem mediany
                 def sortedGrades = grades.sort { it.grade }

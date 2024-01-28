@@ -51,6 +51,9 @@ class Application {
 			def median = gradesService.calculateMedianGradeForSubject(johnDoe.id, "Math")
 			println("Median Grade for John Doe in Math: $median")
 
+			def weightedForAll=gradesService.calculateWeightedAverageGradeForStudent(johnDoe.id)
+			println("Wazona dla wszystkich przedmiotów : $weightedForAll")
+
 		}
 	}
 
