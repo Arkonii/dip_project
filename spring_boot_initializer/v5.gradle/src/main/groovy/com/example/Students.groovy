@@ -7,6 +7,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.*
 
 
+
 @Entity
 class Students {
     @Id
@@ -15,6 +16,6 @@ class Students {
 
     String name
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "student", orphanRemoval = true, fetch = FetchType.EAGER)
     List<Grades> grades
 }

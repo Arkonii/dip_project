@@ -2,6 +2,7 @@ package com.example
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class GradesService {
@@ -129,5 +130,28 @@ class GradesService {
             }
         }
         return null
+    }
+    def deleteGradeById(Long gradeId) {
+        gradesRepository.findById(gradeId).ifPresent {
+            gradesRepository.delete(it)
+        }
+    }
+    def updateGradeById(Long gradeId, String newNameOfSubject, double newGrade, double newWeight) {
+        def existingGrade = gradesRepository.findById(gradeId).orElse(null)
+
+        if (existingGrade) {
+            existingGrade.nameOfSubject = newNameOfSubject
+            existingGrade.grade = newGrade
+            existingGrade.weight = newWeight
+
+            gradesRepository.save(existingGrade)
+        } else {
+            // Obsługa sytuacji, gdy ocena o danym identyfikatorze nie istnieje
+            // Możesz rzucić wyjątek, zwrócić odpowiedź HTTP 404 itp.
+        }
+    }
+    @Transactional
+    def deleteAllGrades() {
+        gradesRepository.deleteAll();
     }
 }

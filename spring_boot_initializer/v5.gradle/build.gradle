@@ -28,8 +28,19 @@ dependencies {
 
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.boot:spring-boot-test:3.2.2'
+	testImplementation 'org.spockframework:spock-core:2.4-M1-groovy-4.0'
+	testImplementation 'org.spockframework:spock-spring:2.4-M1-groovy-4.0'
+	testImplementation 'junit:junit:4.13.1'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+
+	// Konfiguracja testów Spock
+	include '**/*Spec.*'
+	testLogging {
+		events 'passed', 'skipped', 'failed'
+	}
 }
+

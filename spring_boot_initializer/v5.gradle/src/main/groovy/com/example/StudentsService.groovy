@@ -2,6 +2,7 @@ package com.example
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 class StudentsService {
@@ -19,5 +20,14 @@ class StudentsService {
     def addNewStudent(String name) {
         def student = new Students(name: name)
         saveStudent(student)
+    }
+    def deleteStudentById(Long StudentId){
+        studentsRepository.findById(StudentId)ifPresent {
+            studentsRepository.delete(it)
+        }
+    }
+    @Transactional
+    def deleteAllStudents() {
+        studentsRepository.deleteAll();
     }
 }
