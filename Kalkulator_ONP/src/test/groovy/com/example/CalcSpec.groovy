@@ -2,12 +2,15 @@ package com.example
 
 import spock.lang.*
 
+/**
+ * Klasa testów Spock, sprawdzająca popranowść działania kalkulatora ONP
+ */
 class CalcSpec extends Specification {
     def "Test poprawności wyników operacji arytmetycznych"() {
-        expect:
+        expect:"Deklaracja równania i sprawdzanie oczekiwanego wyniku"
         RPN.compute(input) == expectedResult
 
-        where:
+        where:"Implementacja tabeli danych z wykorzystaniem bloku where"
         input| expectedResult
         "2 3 +"| 5.0
         "5 3 -"| 2.0
@@ -18,39 +21,37 @@ class CalcSpec extends Specification {
         "2 3 + "| 5.0
     }
     def "Test dzielenia przez zero"() {
-        when:
+        when:"Deklaracja równania"
         def result = RPN.compute("5 0 /")
 
-        then:
+        then:"Sprawdzanie czy podany wyjątek został wychwycony"
         thrown(ArithmeticException)
     }
 
     def "Test niepoprawnego wyrażenia - za mało operandów"() {
-        when:
+        when:"Deklaracja równania"
         def result = RPN.compute("2 3 + +")
 
-        then:
+        then:"Sprawdzanie czy podany wyjątek został wychwycony"
         thrown(NoSuchElementException)
     }
 
     def "Test niepoprawnego wyrażenia - puste wyrażenie"() {
-        when:
+        when:"Deklaracja równania"
         def result = RPN.compute("")
 
-        then:
+        then:"Sprawdzanie czy podany wyjątek został wychwycony"
         thrown(NumberFormatException)
     }
 
-
-
     def "Test integracyjny klasy RPN"() {
-        given:
+        given:"Deklaracja liczb"
         def expr = "2 3 +"
 
-        when:
+        when:"Deklaracja równania z wykorzystaniem zadeklarowanego String"
         def result = RPN.compute(expr)
 
-        then:
+        then:"Sprawdzanie oczekiwanego wyniku"
         result == 5.0
     }
 }

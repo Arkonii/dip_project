@@ -4,35 +4,74 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
+/**
+ * Klasa GradesService odpowiada za komunukacje z bazą danych za pomocą interfejsu GradesRepository
+ */
 @Service
 class GradesService {
+    /**
+     * Deklaracja repozytorium - interfejsu ktory komunikuję się z bazą danych (z tabelą Grades)
+     */
     @Autowired
     private GradesRepository gradesRepository
+    /**
+     * Deklaracja repozytorium - interfejsu ktory komunikuję się z bazą danych (z tabelą Students)
+     */
     @Autowired
     private StudentsRepository studentsRepository
-    @Autowired
-    private StudentsController studentsController
 
-    def saveGrade(Grades grade) {
+    /**
+     * funkcja zapisująca ocenę za pomocą repozytorium
+     * @param grade obiekt Grades z klasy Grades.groovy
+     * @return obiekt Grades z bazy danych ktory zostal zapisany
+     */
+    def saveGrade(Grades grade) {//funkcja zapisująca
         gradesRepository.save(grade)
     }
-
+    /**
+     * funkcja pobierająca ocenę za pomocą repozytorium
+     * @param id oceny w tabeli Grddes
+     * @return obiekt Grades z bazy danych pod wskazanych id
+     */
     def getGradeById(Long id) {
         gradesRepository.findById(id).orElse(null)
     }
-
+    /**
+     * funkcja dodająca ocene do bazy danych (w tabeli Grades)
+     * @param nameOfSubject nazwa przedmiotu
+     * @param grade ocena
+     * @param student obiekt Students klasy Students.groovy
+     * @param weight waga oceny
+     * @return obiekt Grades ktory zostanie dodany
+     */
     def addNewGrade(String nameOfSubject, double grade, Students student, double weight) {
         def newGrade = new Grades(nameOfSubject: nameOfSubject, grade: grade, student: student, weight: weight)
         saveGrade(newGrade)
     }
+    /**
+     * funkcja zwracająca obiekty tabeli Grades które zą przypisane do danego studenta do danego przedmiotu
+     * @param student obiekt Students klasy Students.groovy
+     * @param subject nazwa przedmiotu
+     * @return obiekty Grades które pasowały do danego wyszukiwania
+     */
     def getGradesByStudentAndSubject(Students student, String subject) {
         gradesRepository.findAllByStudentAndNameOfSubject(student, subject)
     }
+    /**
+     * funkcja zwracająca obiekty tabeli Grades które są przypisane do danego studenta (z wszystkich przedmiotów)
+     * @param student obiekt Students klasy Students.groovy
+     * @return obiekty Grades które pasowały do danego wyszukiwania
+     */
     def getGradesByStudent(Students student) {
         gradesRepository.findAllByStudent(student)
     }
 
-
+    /**
+     * funkcja wyliczająca średnią arytmetyczną dla danego studenta dla danego przedmiotu
+     * @param studentId id studenta z tabeli Students
+     * @param subject nazwa przedmiotu
+     * @return średnia arytmetyczna dla danego studenta dla danego przedmiotu
+     */
     def calculateAverageGradeForSubject(Long studentId, String subject) {
         def student = studentsRepository.findById(studentId).orElse(null)
         if (student) {
@@ -44,7 +83,12 @@ class GradesService {
         }
         return null
     }
-
+    /**
+     * funkcja wyliczająca średnią ważoną dla danego studenta dla danego przedmiotu
+     * @param studentId id studenta z tabeli Students
+     * @param subject nazwa przedmiotu
+     * @return średnia ważoną dla danego studenta dla danego przedmiotu
+     */
     def calculateWeightedAverageGradeForSubject(Long studentId, String subject) {
         def student = studentsRepository.findById(studentId).orElse(null)
         if (student) {
@@ -57,7 +101,12 @@ class GradesService {
         }
         return null
     }
-
+    /**
+     * funkcja wyliczająca mediane dla danego studenta dla danego przedmiotu
+     * @param studentId id studenta z tabeli Students
+     * @param subject nazwa przedmiotu
+     * @return mediana dla danego studenta dla danego przedmiotu
+     */
     def calculateMedianGradeForSubject(Long studentId, String subject) {
         def student = studentsRepository.findById(studentId).orElse(null)
         if (student) {
@@ -78,6 +127,12 @@ class GradesService {
         }
         return null
     }
+    /**
+     * funkcja wyliczająca średnią arytmetyczną dla danego studenta (z wszystkich przedmiotów)
+     * @param studentId id studenta z tabeli Students
+     * @param subject nazwa przedmiotu
+     * @return średnia arytmetyczna dla danego studenta
+     */
     def calculateAverageGradeForStudent(Long studentId) {
         def student = studentsRepository.findById(studentId).orElse(null)
         if (student) {
@@ -89,7 +144,12 @@ class GradesService {
         }
         return null
     }
-
+    /**
+     * funkcja wyliczająca średnią ważoną dla danego studenta (z wszystkich przedmiotów)
+     * @param studentId id studenta z tabeli Students
+     * @param subject nazwa przedmiotu
+     * @return średnia ważoną dla danego studenta
+     */
     def calculateWeightedAverageGradeForStudent(Long studentId) {
         def student = studentsRepository.findById(studentId).orElse(null)
         if (student) {
@@ -110,7 +170,12 @@ class GradesService {
         }
         return null
     }
-
+    /**
+     * funkcja wyliczająca mediane dla danego studenta (z wszystkich przedmiotów)
+     * @param studentId id studenta z tabeli Students
+     * @param subject nazwa przedmiotu
+     * @return mediana arytmetyczna dla danego studenta
+     */
     def calculateMedianGradeForStudent(Long studentId) {
         def student = studentsRepository.findById(studentId).orElse(null)
         if (student) {
@@ -131,11 +196,24 @@ class GradesService {
         }
         return null
     }
+    /**
+     * funkcja usuwająca ocenę pod podanym Id
+     * @param gradeId id oceny w tabeli Grades
+     * @return obiekt Grades ktory został usunięty (null)
+     */
     def deleteGradeById(Long gradeId) {
         gradesRepository.findById(gradeId).ifPresent {
             gradesRepository.delete(it)
         }
     }
+    /**
+     * funkcja aktualizująca ocene pod wskazanym id
+     * @param gradeId id oceny tabeli Grades którą aktualizujemy
+     * @param newNameOfSubject nowa nazwa przedmiotu
+     * @param newGrade nowa ocena
+     * @param newWeight nowa waga oceny
+     * @return zaktualizowany obiekt Grades z tabeli Grades
+     */
     def updateGradeById(Long gradeId, String newNameOfSubject, double newGrade, double newWeight) {
         def existingGrade = gradesRepository.findById(gradeId).orElse(null)
 
@@ -146,10 +224,13 @@ class GradesService {
 
             gradesRepository.save(existingGrade)
         } else {
-            // Obsługa sytuacji, gdy ocena o danym identyfikatorze nie istnieje
-            // Możesz rzucić wyjątek, zwrócić odpowiedź HTTP 404 itp.
+            println("Blad id : "+gradeId)
         }
     }
+    /**
+     * funkcja usuwajaca całą tabelę Grades
+     * @return wszystkie obiekty Grades które zostały usunięte (null)
+     */
     @Transactional
     def deleteAllGrades() {
         gradesRepository.deleteAll();
