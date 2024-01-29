@@ -1,1 +1,0 @@
-"# arkadiusz_nocek_34311_inz"  initgit add README.mdgit commit -m "first commit"git branch -M maingit remote add origin https://github.com/Arkonii/arkadiusz_nocek_34311_inz.gitgit push -u origin main
